@@ -17,15 +17,6 @@ logging.basicConfig(
 )
 
 def monitor_drift():
-    logging.info("enter method")
-    print("This is a debug message.")
-
-    # Command to activate the Conda environment and run the script
-    #env_name = "base"
-    #script_path = "/home/edwin/git/ML-IPython-notebooks/House price prediction - project/airflow/monitor_drift.py"
-    #command = f'eval \"$(conda shell.bash hook)\" && conda activate {env_name} && python "{script_path}"'
-    #result = subprocess.run(command, capture_output=True, shell=True)
-
     python_path = "/home/edwin/anaconda3/bin/python"
     script_path = "/home/edwin/git/mlops-open-source-tools/airflow/monitor_drift.py"
 
@@ -33,12 +24,9 @@ def monitor_drift():
     result = subprocess.run([python_path, script_path], capture_output=True, text=True)
 
     if(result.stdout.endswith("Data drift detected! Retraining required.\n")):
-        #logging.info("trigger_retrain")
-        #logging.info(result.stdout)
         return "trigger_retrain"
     else:
         return "no_retrain"
-        #raise ValueError(result.stdout.decode())
     
 def retrain_model():
     python_path = "/home/edwin/anaconda3/bin/python"

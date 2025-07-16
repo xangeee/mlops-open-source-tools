@@ -2,6 +2,9 @@ import pandas as pd
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 
 class DataEncoding:
+    def __init__(self):
+        self.scaler = StandardScaler()
+
     def binary_encoding(self, data:pd.DataFrame, binary_columns) -> pd.DataFrame:
         # Encoding categorical variables
         for column in binary_columns:
@@ -17,9 +20,9 @@ class DataEncoding:
 
     def numerical_scaling(self, data:pd.DataFrame, num_columns) -> pd.DataFrame:
         # Standardizing numerical features
-        scaler = StandardScaler()
+        
         for column in num_columns:
-            data[num_columns] = scaler.fit_transform(data[num_columns])
+            data[num_columns] = self.scaler.fit_transform(data[num_columns])
         return data
 
 

@@ -5,12 +5,13 @@ import zipfile
 
 #Factory design pattern
 
+#Product
 class DataIngestor(ABC):
     @abstractmethod
     def ingest(self, file_path:str) -> pd.DataFrame:
         pass
 
-
+#Concrete Product
 class ZipFileIngestor(DataIngestor):
     def ingest(self, file_path:str) -> pd.DataFrame:
         if not file_path.endswith(".zip"):
@@ -31,11 +32,12 @@ class ZipFileIngestor(DataIngestor):
         df = pd.read_csv(path)
         return df
 
+#Concrete Product
 class CsvFileIngestor(DataIngestor):
     def ingest(self, file_path) -> pd.DataFrame:
         raise NotImplementedError("Implement csv file reader")
 
-#Factory 
+#Concrete Creator 
 class DataIngestorFactory:
     @staticmethod
     def get_data_ingestor(extension_type) -> DataIngestor:
